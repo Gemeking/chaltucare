@@ -1,0 +1,101 @@
+        /* Custom Styles */
+        body {
+            background: linear-gradient(135deg, #6b6810, #2045ff);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .dashboard-container {
+            padding: 2rem;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1rem;
+            height: 100%;
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .sidebar .nav-link.active {
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        /* Offcanvas styling for mobile */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(10px);
+                padding: 1rem;
+                margin-top: 0.5rem;
+                border-radius: 10px;
+            }
+
+            .dropdown-menu {
+                position: static !important;
+                transform: none !important;
+                margin-top: 0.5rem;
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .dropdown-item {
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            .dropdown-item:hover {
+                background: rgba(255, 255, 255, 0.2);
+                color: #fff;
+            }
+        }
+
+        /* Dashboard Content Styles */
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background: rgba(255, 255, 255, 0.2);
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .list-group-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .list-group-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
