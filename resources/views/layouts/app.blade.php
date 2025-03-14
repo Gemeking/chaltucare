@@ -16,4 +16,9 @@
     <!-- Include the footer -->
     @include('components.footer')
 </body>
+<style>
+.container{
+    background: linear-gradient(135deg, #A7E4FF, #6FA3EF, #5D4E8E);
+}
+</style>
 </html>

@@ -69,7 +69,6 @@
     <style>
     /* About Hero Section */
 .about-hero {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
     color: white;
     padding: 100px 2rem;
     text-align: center;
@@ -120,7 +119,6 @@
 
 /* Team Section */
 .team-section {
-    background: #f4f7f6;
     padding: 4rem 2rem;
     text-align: center;
 }
@@ -139,7 +137,6 @@
 }
 
 .team-member {
-    background: white;
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);

@@ -92,7 +92,11 @@ Route::get('/components/{component}', function ($component) {
 });
 
 
-// Admin Dashboard Route (No Auth Middleware)
+// user Dashboard Route (No Auth Middleware)
 Route::get('/user/index', function () {
     return view('user.index');
 })->name('user.index');
+
+Route::get('/user/profile/index', function () {
+    return view('user.profile.index');
+});

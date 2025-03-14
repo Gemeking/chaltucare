@@ -74,11 +74,9 @@
     justify-content: center;
     align-items: center;
     padding: 4rem 2rem;
-    background: #f4f7f6;
 }
 
 .contact-container {
-    background: white;
     padding: 2.5rem;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
