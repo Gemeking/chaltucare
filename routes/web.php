@@ -23,6 +23,10 @@ Route::get('/contact', function () {
     return view('pages.contact');
 });
 
+Route::get('/blog', function () {
+    return view('pages.blog');
+});
+
 // routes/web.php
 
 // Admin Dashboard Route (No Auth Middleware)

@@ -94,7 +94,6 @@
         }
 
         body {
-            background: linear-gradient(135deg, #000, #764ba2);
             color: #fff;
             display: flex;
             flex-direction: column;

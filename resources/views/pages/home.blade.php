@@ -57,7 +57,6 @@
         }
 
         .main {
-            background: linear-gradient(135deg, #6b6810, #2045ff);
             min-height: 100vh;
             width: auto;
             padding: 20px 0;
