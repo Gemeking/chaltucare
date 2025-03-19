@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@include('components.header')
 
 @section('title', 'About Us - HealthEase')
 

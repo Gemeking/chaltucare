@@ -9,6 +9,7 @@
     <!-- Include the navbar -->
 
     <!-- Main content -->
+    @include('components.header')
     <div class="container">
         @yield('content')
     </div>

@@ -11,7 +11,6 @@
   <style>
     /* General Styles */
     body {
-      background: linear-gradient(135deg, #000, #764ba2);
       color: #fff;
       font-family: 'Poppins', sans-serif;
       margin: 0;

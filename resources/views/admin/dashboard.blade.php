@@ -5,9 +5,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
 
-    <!-- Include Header -->
-    @include('components.header')
-
     <!-- Dashboard Content -->
     <div class="dashboard-container container-fluid">
     <br></br></br>

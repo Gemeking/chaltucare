@@ -3,7 +3,7 @@
 @section('title', 'Contact Us - HealthEase')
 
 @section('content')
-@include('components.header')
+
     <section class="contact-hero">
         <div class="contact-container">
             <h1>Contact Us</h1>

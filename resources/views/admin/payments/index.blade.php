@@ -1,151 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Payment Verification</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <style>
-        /* General Styles */
-        .container-fluid {
-            padding: 20px;
-        }
+    <link rel="stylesheet" href="{{ asset('css/admin/payment.css') }}">
 
-        h2 {
-            color: #fff;
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        /* Card Styles */
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-header {
-            background: rgba(255, 255, 255, 0.2);
-            border-bottom: none;
-            border-radius: 10px 10px 0 0;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        /* Table Styles */
-        .table {
-            color: #fff;
-        }
-
-        .table thead th {
-            background-color: #3498db;
-            color: #fff;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-
-        .table tbody tr {
-            background-color: rgba(255, 255, 255, 0.05);
-            transition: background 0.3s ease;
-        }
-
-        .table tbody tr:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Badge Styles */
-        .badge.bg-warning {
-            background-color: #ffc107 !important;
-            color: #000;
-        }
-
-        .badge.bg-success {
-            background-color: #28a745 !important;
-        }
-
-        .badge.bg-danger {
-            background-color: #dc3545 !important;
-        }
-
-        /* Button Styles */
-        .btn-verify {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 12px;
-            transition: background 0.3s ease;
-        }
-
-        .btn-verify:hover {
-            background-color: #218838;
-        }
-
-        .btn-reject {
-            background-color: #dc3545;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 12px;
-            transition: background 0.3s ease;
-        }
-
-        .btn-reject:hover {
-            background-color: #c82333;
-        }
-
-        /* Modal Styles */
-        .modal-content {
-            background-color: #1a1a1a;
-            color: #fff;
-            border-radius: 10px;
-        }
-
-        .modal-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-body img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        /* Nav Tabs */
-        .nav-tabs .nav-link {
-            color: #fff;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 5px;
-            margin-right: 5px;
-            transition: background 0.3s ease;
-        }
-
-        .nav-tabs .nav-link.active {
-            background-color: #3498db;
-            color: #fff;
-        }
-
-        .nav-tabs .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-    </style>
 </head>
 <body>
     <div class="container-fluid">
@@ -361,4 +221,3 @@
         }
     </script>
 </body>
-</html>
