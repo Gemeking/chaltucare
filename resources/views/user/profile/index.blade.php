@@ -1,369 +1,303 @@
 @extends('layouts.app')
 
 @section('content')
-@include('components.header')
-    <section class="main">
-<<<<<<< HEAD
-        <div class="profile-edit-section">
-            <h2>Edit Profile</h2>
-            <form action="{{ url('/update-profile') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="form-group">
-        <label for="fullname">Full Name</label>
-        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+  <div class="container">
+    <h1>Profile Setting</h1>
+
+    <!-- Profile Information Section -->
+    <div class="profile-section">
+      <!-- Profile Picture -->
+      <div class="profile-image">
+        <img id="profilePicture" src="{{ asset('images/default-profile.png') }}" alt="Profile Picture" onclick="openImagePopup(this.src)">
+        <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+        <button onclick="document.getElementById('profilePictureInput').click()">Change Profile Picture</button>
+      </div>
+
+      <!-- Profile Details Form -->
+      <div class="profile-details">
+        <form id="profileForm">
+          <!-- Full Name -->
+          <label for="full_name">Full Name:</label>
+          <input type="text" id="full_name" name="full_name" value="John Doe">
+
+          <!-- Bio -->
+          <label for="bio">Bio:</label>
+          <textarea id="bio" name="bio" rows="4">Software Engineer | Tech Enthusiast</textarea>
+
+          <!-- Email (Read-only) -->
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="john.doe@example.com" readonly>
+
+          <!-- Username (Read-only) -->
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" value="johndoe123" readonly>
+
+          <!-- Save Button -->
+          <button type="submit">Save Changes</button>
+        </form>
+      </div>
     </div>
 
-    <div class="form-group">
-        <label for="profile_picture">Profile Picture</label>
-        <input type="file" id="profile_picture" name="profile_picture">
+    <!-- Change Password Section -->
+    <div class="change-password-section">
+      <h2>Change Password</h2>
+      <form id="changePasswordForm">
+        <!-- Current Password -->
+        <label for="current_password">Current Password:</label>
+        <input type="password" id="current_password" name="current_password" required>
+
+        <!-- New Password -->
+        <label for="new_password">New Password:</label>
+        <input type="password" id="new_password" name="new_password" required>
+
+        <!-- Confirm New Password -->
+        <label for="confirm_password">Confirm New Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+
+        <!-- Submit Button -->
+        <button type="submit">Change Password</button>
+      </form>
     </div>
 
-    <div class="form-group">
-        <label for="bio">Bio</label>
-        <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself"></textarea>
+    <!-- Profile Picture Pop-up -->
+    <div id="imagePopup" class="image-popup">
+      <span class="close-popup" onclick="closeImagePopup()">&times;</span>
+      <img id="popupImage" src="" alt="Enlarged Profile Picture">
     </div>
+  </div>
 
-    <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="text" id="phone" name="phone" placeholder="Enter your phone number">
-    </div>
+  <style>
+    /* Light Theme (Default) */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
 
-    <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" id="address" name="address" placeholder="Enter your address">
-    </div>
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-    <div class="form-group">
-        <label for="country">Country</label>
-        <select id="country" name="country">
-            <option value="">Select Country</option>
-            <option value="USA">United States</option>
-            <option value="Canada">Canada</option>
-            <option value="UK">United Kingdom</option>
-            <option value="Australia">Australia</option>
-            <!-- Add more countries as needed -->
-        </select>
-    </div>
+    h1, h2 {
+      color: #28a745;
+    }
 
-    <div class="form-group">
-        <label for="social_links">Social Links</label>
-        <input type="text" id="social_links" name="social_links" placeholder="Enter social media links separated by commas">
-    </div>
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-    <button type="submit" class="submit-btn">Update Profile</button>
-</form>
-=======
-        <div class="profile-container">
-            <!-- View Profile Section (Left) -->
-            <div class="view-profile">
-                <div class="profile-header">
-                    <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-picture">
-                    <h2 class="profile-name">John Doe</h2>
-                    <div class="edit-icon" onclick="toggleEditForm()">
-                        <i class="fas fa-edit"></i>
-                    </div>
-                </div>
-                <div class="profile-details">
-                    <p><strong>Bio:</strong> Passionate about health and wellness.</p>
-                    <p><strong>Phone:</strong> +123 456 7890</p>
-                    <p><strong>Address:</strong> 123 Main St, City, Country</p>
-                    <p><strong>Social Links:</strong> 
-                        <a href="#" class="social-link">Twitter</a>, 
-                        <a href="#" class="social-link">LinkedIn</a>
-                    </p>
-                </div>
-            </div>
+    .profile-image {
+      text-align: center;
+    }
 
-            <!-- Edit Profile Section (Right) -->
-            <div class="edit-profile">
-                <h2>Edit Profile</h2>
-                <form action="{{ url('/update-profile') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="fullname">Full Name</label>
-                        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
-                    </div>
+    .profile-image img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #28a745;
+      cursor: pointer;
+    }
 
-                    <div class="form-group">
-                        <label for="profile_picture">Profile Picture</label>
-                        <input type="file" id="profile_picture" name="profile_picture">
-                    </div>
+    .profile-image button {
+      margin-top: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-                    <div class="form-group">
-                        <label for="bio">Bio</label>
-                        <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself"></textarea>
-                    </div>
+    .profile-image button:hover {
+      background-color: #218838;
+    }
 
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="text" id="phone" name="phone" placeholder="Enter your phone number">
-                    </div>
+    .profile-details, .change-password-section {
+      flex: 1;
+    }
 
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" name="address" placeholder="Enter your address">
-                    </div>
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
 
-                    <div class="form-group">
-                        <label for="country">Country</label>
-                        <select id="country" name="country">
-                            <option value="">Select Country</option>
-                            <option value="USA">United States</option>
-                            <option value="Canada">Canada</option>
-                            <option value="UK">United Kingdom</option>
-                            <option value="Australia">Australia</option>
-                        </select>
-                    </div>
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
 
-                    <div class="form-group">
-                        <label for="social_links">Social Links</label>
-                        <input type="text" id="social_links" name="social_links" placeholder="Enter social media links separated by commas">
-                    </div>
+    textarea {
+      resize: vertical;
+    }
 
-                    <button type="submit" class="submit-btn">Update Profile</button>
-                </form>
-            </div>
->>>>>>> d1f9800e18bdbe04aaa552e1243e7e639a2203de
-        </div>
-    </section>
+    button[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
+    button[type="submit"]:hover {
+      background-color: #218838;
+    }
 
-        .main {
-            background: linear-gradient(135deg, #6b6810, #2045ff);
-            min-height: 100vh;
-            width: auto;
-            padding: 20px 0;
-            color: #fff;
-        }
+    /* Dark Theme */
+    body.dark-theme {
+      background-color: #121212;
+      color: #ffffff;
+    }
 
-<<<<<<< HEAD
-        .profile-edit-section {
-            margin: 50px 5%;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+    .dark-theme .container {
+      background-color: #1f1f1f;
+      color: #ffffff;
+    }
 
-        .profile-edit-section h2 {
-            font-size: 40px;
-            color: #fff;
-=======
-        .profile-container {
-            display: flex;
-            margin: 50px 5%;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
+    .dark-theme h1, .dark-theme h2 {
+      color: #4caf50;
+    }
 
-        .view-profile {
-            width: 25%;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    .dark-theme input, .dark-theme textarea, .dark-theme button {
+      background-color: #333;
+      color: #ffffff;
+      border-color: #555;
+    }
 
-        .profile-header {
-            text-align: center;
-            position: relative;
-        }
+    .dark-theme .profile-image img {
+      border-color: #4caf50;
+    }
 
-        .profile-picture {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 2px solid #28a745;
-        }
+    .dark-theme .profile-image button {
+      background-color: #4caf50;
+    }
 
-        .profile-name {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+    .dark-theme button[type="submit"] {
+      background-color: #4caf50;
+    }
 
-        .edit-icon {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #28a745;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
+    .dark-theme button[type="submit"]:hover {
+      background-color: #45a049;
+    }
 
-        .edit-icon:hover {
-            background: #218838;
-            transform: rotate(15deg) scale(1.1);
-        }
+    /* Image Popup */
+    .image-popup {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      text-align: center;
+    }
 
-        .profile-details {
-            margin-top: 20px;
-        }
+    .image-popup img {
+      max-width: 90%;
+      max-height: 90%;
+      margin-top: 5%;
+    }
 
-        .profile-details p {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
+    .close-popup {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        .social-link {
-            color: #28a745;
-            text-decoration: none;
-            margin-right: 5px;
-        }
+    .close-popup:hover {
+      color: #ccc;
+    }
 
-        .social-link:hover {
-            text-decoration: underline;
-        }
+    /* Mobile Responsiveness */
+    @media (min-width: 768px) {
+      .profile-section {
+        flex-direction: row;
+      }
+    }
+  </style>
 
-        .edit-profile {
-            width: 75%;
-            padding: 20px;
-        }
+  <script>
+    // Theme Toggle Logic
+    const themeToggle = document.getElementById("theme-toggle");
+    const body = document.body;
 
-        .edit-profile h2 {
-            font-size: 30px;
->>>>>>> d1f9800e18bdbe04aaa552e1243e7e639a2203de
-            margin-bottom: 20px;
-        }
+    // Check localStorage for theme preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      body.classList.add("dark-theme");
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    // Profile Picture Upload
+    const profilePictureInput = document.getElementById("profilePictureInput");
+    const profilePicture = document.getElementById("profilePicture");
 
-        .form-group label {
-<<<<<<< HEAD
-            font-size: 18px;
-=======
-            font-size: 16px;
->>>>>>> d1f9800e18bdbe04aaa552e1243e7e639a2203de
-            color: #ddd;
-            display: block;
-            margin-bottom: 5px;
-        }
+    profilePictureInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          profilePicture.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-<<<<<<< HEAD
-            font-size: 16px;
-=======
-            font-size: 14px;
->>>>>>> d1f9800e18bdbe04aaa552e1243e7e639a2203de
-            color: #333;
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    // Profile Form Submission
+    const profileForm = document.getElementById("profileForm");
+    profileForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const fullName = document.getElementById("full_name").value;
+      const bio = document.getElementById("bio").value;
 
-        .form-group textarea {
-            resize: vertical;
-        }
+      // Simulate saving changes (Replace with actual API call)
+      alert(`Profile Updated:\nFull Name: ${fullName}\nBio: ${bio}`);
+    });
 
-<<<<<<< HEAD
-        .current-profile-pic {
-            margin-top: 10px;
-            max-width: 100px;
-            border-radius: 50%;
-        }
+    // Change Password Form Submission
+    const changePasswordForm = document.getElementById("changePasswordForm");
+    changePasswordForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const currentPassword = document.getElementById("current_password").value;
+      const newPassword = document.getElementById("new_password").value;
+      const confirmPassword = document.getElementById("confirm_password").value;
 
-        .submit-btn {
-            padding: 10px 50px;
-            font-size: 20px;
-=======
-        .submit-btn {
-            padding: 10px 30px;
-            font-size: 16px;
->>>>>>> d1f9800e18bdbe04aaa552e1243e7e639a2203de
-            font-weight: 600;
-            color: #fff;
-            background-color: #28a745;
-            border: transparent;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
+      if (newPassword !== confirmPassword) {
+        alert("New passwords do not match!");
+        return;
+      }
 
-        .submit-btn:hover {
-            background-color: #218838;
-        }
+      // Simulate password change (Replace with actual API call)
+      alert("Password changed successfully!");
+    });
 
-        /* Media Queries for Mobile Responsiveness */
-        @media (max-width: 768px) {
-<<<<<<< HEAD
-            .profile-edit-section {
-                margin: 20px 5%;
-                padding: 15px;
-            }
+    // Image Popup Logic
+    function openImagePopup(src) {
+      const popup = document.getElementById("imagePopup");
+      const popupImage = document.getElementById("popupImage");
+      popupImage.src = src;
+      popup.style.display = "block";
+    }
 
-            .profile-edit-section h2 {
-                font-size: 30px;
-            }
-
-            .form-group label {
-                font-size: 16px;
-=======
-            .profile-container {
-                flex-direction: column;
-                margin: 20px 5%;
-            }
-
-            .view-profile,
-            .edit-profile {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .edit-profile h2 {
-                font-size: 24px;
-            }
-
-            .form-group label {
-                font-size: 14px;
->>>>>>> d1f9800e18bdbe04aaa552e1243e7e639a2203de
-            }
-
-            .form-group input,
-            .form-group textarea,
-            .form-group select {
-<<<<<<< HEAD
-                font-size: 14px;
-            }
-
-            .submit-btn {
-                font-size: 18px;
-                padding: 12px 40px;
-            }
-        }
-    </style>
-=======
-                font-size: 12px;
-            }
-
-            .submit-btn {
-                font-size: 14px;
-                padding: 8px 20px;
-            }
-        }
-    </style>
-
-    <script>
-        function toggleEditForm() {
-            const editForm = document.querySelector('.edit-profile');
-            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
-        }
-    </script>
->>>>>>> d1f9800e18bdbe04aaa552e1243e7e639a2203de
+    function closeImagePopup() {
+      const popup = document.getElementById("imagePopup");
+      popup.style.display = "none";
+    }
+  </script>
 @endsection

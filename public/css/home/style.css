@@ -1,158 +1,239 @@
-/* General Styles */
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #1a1a1a;
-  color: #fff;
-  line-height: 1.6;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
 
-a {
-  text-decoration: none;
-  color: #007bff;
-}
+        .main {
+            min-height: 100vh;
+            width: auto;
+            padding: 20px 0;
+            color: #fff;
+        }
 
-a:hover {
-  color: #0056b3;
-}
+        .main-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0 0 0;
+        }
 
-/* Navbar */
-.navbar {
-  background-color: #111;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  position: relative;
-}
+        .greenBox,
+        .yellowBox {
+            position: absolute;
+            right: 10px;
+        }
 
-.navbar-brand {
-  display: flex;
-  align-items: center;
-}
+        .greenBox {
+            width: 35%;
+            bottom: 30px;
+        }
 
-.navbar-brand .logo {
-  height: 50px;
-  margin-right: 10px;
-}
+        .yellowBox {
+            width: 30%;
+            bottom: 50px;
+        }
 
-.navbar-brand .brand-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #fff;
-}
+        .doctor {
+            position: absolute;
+            right: 10px;
+            bottom: 0;
+            height: 90%;
+        }
 
-.navbar-toggler {
-  display: none;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
+        .left-content {
+            margin-left: 5%;
+            position: relative;
+            width: 50%;
+        }
 
-.navbar-nav {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+        h1 {
+            font-size: 70px;
+            color: #fff;
+        }
 
-.navbar-nav .nav-link {
-  color: #fff;
-  margin: 0 15px;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
+        p {
+            font-size: 20px;
+            color: #ddd;
+            margin: 10px 0;
+        }
 
-.navbar-nav .nav-link:hover {
-  color: #007bff;
-}
+        .stethoscope {
+            position: absolute;
+            width: 80%;
+            top: -2px;
+            right: -20%;
+            z-index: -1;
+        }
 
-/* Hero Section */
-.hero {
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Flag_of_Central_Ethiopia.png/640px-Flag_of_Central_Ethiopia.png');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-}
+        .bottomAngle {
+            margin: 0 0 0 95%;
+        }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-}
+        .mouse {
+            margin: 40px 0 0 100%;
+            height: 40px;
+            width: 40px;
+        }
 
-.hero-overlay {
-  position: relative;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 2rem;
-  border-radius: 10px;
-}
+        .right-content-btn {
+            padding: 10px 50px;
+            margin: 20px 0 0 0;
+            font-size: 25px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #28a745;
+            border: transparent;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
 
-.hero h1 {
-  font-size: 3.5rem;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
+        .right-content-btn:hover {
+            background-color: #218838;
+        }
 
-.hero p {
-  font-size: 1.5rem;
-  margin-bottom: 30px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
+        /* Additional Content Styles */
+        .additional-content {
+            margin: 50px 5%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-.hero .btn {
-  background-color: #007bff;
-  color: #fff;
-  padding: 0.75rem 2rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  transition: background-color 0.3s ease;
-}
+        .additional-content h2 {
+            font-size: 40px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
 
-.hero .btn:hover {
-  background-color: #0056b3;
-}
+        .additional-content .platform-name {
+            color: #28a745;
+        }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .navbar-toggler {
-    display: block;
-  }
+        .additional-content .intro {
+            font-size: 18px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
 
-  .navbar-nav {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background-color: #111;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    padding: 1rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  }
+        .additional-content h3 {
+            font-size: 28px;
+            color: #28a745;
+            margin: 20px 0 10px;
+        }
 
-  .navbar-nav.active {
-    display: flex;
-  }
+        .additional-content ul {
+            list-style: none;
+            padding: 0;
+        }
 
-  .navbar-nav .nav-link {
-    margin: 10px 0;
-    text-align: center;
-  }
-}
+        .additional-content ul li {
+            font-size: 18px;
+            color: #ddd;
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .additional-content ul li::before {
+            content: "✔";
+            color: #28a745;
+            position: absolute;
+            left: 0;
+        }
+
+        .additional-content ul li strong {
+            color: #fff;
+        }
+
+        .cta-btn {
+            padding: 15px 50px;
+            margin: 20px 0 0 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #28a745;
+            border: transparent;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Media Queries for Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .main {
+                height: auto;
+                padding: 10px 0;
+            }
+
+            .main-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            .left-content {
+                width: 90%;
+                margin-left: 0;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .right-content {
+                display: none;
+            }
+
+            .stethoscope {
+                display: none;
+            }
+
+            .bottomAngle,
+            .TopAngle,
+            .mouse {
+                display: none;
+            }
+            
+
+            .right-content-btn {
+                font-size: 20px;
+                padding: 10px 30px;
+                margin: 10px 0;
+            }
+
+            .additional-content {
+                margin: 20px 5%;
+                padding: 15px;
+            }
+
+            .additional-content h2 {
+                font-size: 30px;
+            }
+
+            .additional-content h3 {
+                font-size: 24px;
+            }
+
+            .additional-content ul li {
+                font-size: 16px;
+            }
+
+            .cta-btn {
+                font-size: 18px;
+                padding: 12px 40px;
+            }
+        }

@@ -39,12 +39,18 @@ Route::get('/user', function () {
     return view('user');
 })->name('user');
 
-Route::get('/user/payments/index', function () {
+Route::get('/user/payments/', function () {
     return view('user.payments.index');
 });
+Route::get('/user/profile/', function () {
+    return view('user.profile.index');
+});
 
-Route::get('/user/appointments/index', function () {
+Route::get('/user/appointments/', function () {
     return view('user.appointments.index');
+});
+Route::get('/user/messages/', function () {
+    return view('user.messages.index');
 });
 
 
@@ -100,7 +106,3 @@ Route::get('/components/{component}', function ($component) {
 Route::get('/user/index', function () {
     return view('user.index');
 })->name('user.index');
-
-Route::get('/user/profile/index', function () {
-    return view('user.profile.index');
-});

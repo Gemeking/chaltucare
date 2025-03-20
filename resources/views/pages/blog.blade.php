@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chaltu Care - Online Health Counseling</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
 </head>
 <body>
     <header>
@@ -45,69 +45,4 @@
     <script src="script.js"></script>
 </body>
 </html>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-}
-
-main {
-    padding: 20px;
-}
-
-.blog-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.blog-post {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.blog-post h2 {
-    margin-top: 0;
-}
-
-.blog-post img {
-    max-width: 100%;
-    border-radius: 8px;
-}
-
-.tags {
-    font-style: italic;
-    color: #555;
-}
-
-.meta {
-    font-size: 0.9em;
-    color: #777;
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-</style>
 @endsection

@@ -1,194 +1,332 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Payments</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #000; /* Black background */
-            color: #fff; /* White text */
-        }
-        .card {
-            background-color:rgb(130, 130, 130); /* Dark gray card background */
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .table {
-            color: #fff; /* White text for table */
-        }
-        .table thead th {
-            background-color: #343a40; /* Dark header background */
-            color: #fff; /* White header text */
-        }
-        .table tbody tr {
-            background-color: #262626; /* Dark row background */
-        }
-        .table tbody tr:hover {
-            background-color: #333; /* Darker hover background */
-        }
-        .badge.bg-warning {
-            background-color: #ffc107 !important; /* Yellow for pending */
-            color: #000; /* Black text for warning badge */
-        }
-        .badge.bg-success {
-            background-color: #28a745 !important; /* Green for verified */
-        }
-        .badge.bg-danger {
-            background-color: #dc3545 !important; /* Red for rejected */
-        }
-        .modal-content {
-            background-color: #1a1a1a; /* Dark modal background */
-            color: #fff; /* White modal text */
-        }
-        .modal-body img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="my-4">My Payments</h2>
+@extends('layouts.app')
 
-                <!-- Upload Receipt Form -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Upload Receipt</h5>
-                    </div>
-                    <div class="card-body">
-                        <form id="uploadReceiptForm">
-                            <div class="mb-3">
-                                <label for="appointmentId" class="form-label">Appointment ID</label>
-                                <input type="text" class="form-control" id="appointmentId" name="appointmentId" placeholder="Enter Appointment ID" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="receiptImage" class="form-label">Upload Receipt</label>
-                                <input type="file" class="form-control" id="receiptImage" name="receiptImage" accept="image/*" required>
-                                <small class="form-text text-muted">Upload a clear image of your payment receipt.</small>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-upload me-2"></i> Upload Receipt
-                            </button>
-                        </form>
-                    </div>
-                </div>
+@section('content')
+  <div class="container">
+    <h1>Payment Management</h1>
 
-                <!-- Payment List -->
-                <div class="card shadow-sm">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Payment History</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Payment ID</th>
-                                        <th>Appointment ID</th>
-                                        <th>Receipt Image</th>
-                                        <th>Status</th>
-                                        <th>Verified By</th>
-                                        <th>Verified At</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Sample Payment 1 -->
-                                    <tr>
-                                        <td>1</td>
-                                        <td>201</td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#receiptModal" onclick="showReceipt('https://via.placeholder.com/150')">
-                                                <img src="https://via.placeholder.com/150" alt="Receipt" class="img-thumbnail" style="width: 100px;">
-                                            </a>
-                                        </td>
-                                        <td><span class="badge bg-warning">Pending</span></td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <!-- Sample Payment 2 -->
-                                    <tr>
-                                        <td>2</td>
-                                        <td>202</td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#receiptModal" onclick="showReceipt('https://via.placeholder.com/150')">
-                                                <img src="https://via.placeholder.com/150" alt="Receipt" class="img-thumbnail" style="width: 100px;">
-                                            </a>
-                                        </td>
-                                        <td><span class="badge bg-success">Verified</span></td>
-                                        <td>Admin 1</td>
-                                        <td>2023-10-01 12:34:56</td>
-                                    </tr>
-                                    <!-- Sample Payment 3 -->
-                                    <tr>
-                                        <td>3</td>
-                                        <td>203</td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#receiptModal" onclick="showReceipt('https://via.placeholder.com/150')">
-                                                <img src="https://via.placeholder.com/150" alt="Receipt" class="img-thumbnail" style="width: 100px;">
-                                            </a>
-                                        </td>
-                                        <td><span class="badge bg-danger">Rejected</span></td>
-                                        <td>Admin 2</td>
-                                        <td>2023-10-02 14:56:78</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Upload Payment Receipt Section -->
+    <div class="upload-payment-section">
+      <h2>Upload Payment Receipt</h2>
+      <form id="uploadPaymentForm">
+        <!-- Appointment Selection -->
+        <label for="appointment_id">Select Appointment:</label>
+        <select id="appointment_id" name="appointment_id" required>
+          <option value="">Select Appointment</option>
+          <!-- Populate with user's appointments -->
+          <option value="1">Appointment #1 - 2023-10-15 10:00 AM</option>
+          <option value="2">Appointment #2 - 2023-10-20 02:00 PM</option>
+        </select>
+
+        <!-- Receipt Upload -->
+        <label for="receipt_image">Upload Receipt:</label>
+        <input type="file" id="receipt_image" name="receipt_image" accept="image/*" required>
+
+        <!-- Submit Button -->
+        <button type="submit">Upload Receipt</button>
+      </form>
     </div>
 
-    <!-- Receipt Image Modal -->
-    <div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="receiptModalLabel">Receipt Image</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img id="receiptImage" src="" alt="Receipt" class="img-fluid">
-                </div>
-            </div>
-        </div>
+    <!-- Payment History Section -->
+    <div class="payment-history-section">
+      <h2>Payment History</h2>
+      <table id="paymentHistory">
+        <thead>
+          <tr>
+            <th>Appointment</th>
+            <th>Receipt</th>
+            <th>Status</th>
+            <th>Verified By</th>
+            <th>Verified At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be populated dynamically using JavaScript -->
+        </tbody>
+      </table>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script>
-        // Function to show receipt image in modal
-        function showReceipt(imageUrl) {
-            document.getElementById('receiptImage').src = imageUrl;
-        }
+    <!-- Receipt Pop-up -->
+    <div id="receiptPopup" class="receipt-popup">
+      <span class="close-popup" onclick="closeReceiptPopup()">&times;</span>
+      <img id="popupReceipt" src="" alt="Enlarged Receipt">
+    </div>
+  </div>
 
-        // Function to handle receipt upload
-        document.getElementById('uploadReceiptForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const appointmentId = document.getElementById('appointmentId').value;
-            const receiptImage = document.getElementById('receiptImage').files[0];
+  <style>
+    /* Light Theme (Default) */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
 
-            if (appointmentId && receiptImage) {
-                // Simulate an API call to upload the receipt
-                console.log('Receipt uploaded for Appointment ID:', appointmentId);
-                alert('Receipt uploaded successfully!');
-                // Reset the form
-                document.getElementById('uploadReceiptForm').reset();
-            } else {
-                alert('Please fill out all fields.');
-            }
-        });
-    </script>
-</body>
-</html>
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      color: #28a745;
+    }
+
+    .upload-payment-section, .payment-history-section {
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f8f9fa;
+    }
+
+    /* Receipt Pop-up */
+    .receipt-popup {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      text-align: center;
+    }
+
+    .receipt-popup img {
+      max-width: 90%;
+      max-height: 90%;
+      margin-top: 5%;
+    }
+
+    .close-popup {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close-popup:hover {
+      color: #ccc;
+    }
+
+    /* Dark Theme */
+    body.dark-theme {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    .dark-theme .container {
+      background-color: #1f1f1f;
+      color: #ffffff;
+    }
+
+    .dark-theme h1, .dark-theme h2 {
+      color: #4caf50;
+    }
+
+    .dark-theme input, .dark-theme select, .dark-theme button {
+      background-color: #333;
+      color: #ffffff;
+      border-color: #555;
+    }
+
+    .dark-theme table th, .dark-theme table td {
+      border-color: #555;
+    }
+
+    .dark-theme table th {
+      background-color: #333;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      th {
+        display: none;
+      }
+
+      tr {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+      }
+
+      td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+      }
+
+      td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+      }
+    }
+  </style>
+
+  <script>
+    // Sample Data (Replace with actual data from backend)
+    const payments = [
+      {
+        payment_id: 1,
+        appointment_id: 1,
+        receipt_image_url: "{{ asset('images/receipt1.jpg') }}",
+        status: "verified",
+        verified_by: "Admin",
+        verified_at: "2023-10-15 10:30 AM",
+      },
+      {
+        payment_id: 2,
+        appointment_id: 2,
+        receipt_image_url: "{{ asset('images/receipt2.jpg') }}",
+        status: "pending",
+        verified_by: null,
+        verified_at: null,
+      },
+    ];
+
+    // DOM Elements
+    const uploadPaymentForm = document.getElementById("uploadPaymentForm");
+    const paymentHistoryTable = document.getElementById("paymentHistory").getElementsByTagName("tbody")[0];
+    const receiptPopup = document.getElementById("receiptPopup");
+    const popupReceipt = document.getElementById("popupReceipt");
+
+    // Render Payment History
+    function renderPaymentHistory() {
+      paymentHistoryTable.innerHTML = "";
+
+      payments.forEach((payment) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td data-label="Appointment">Appointment #${payment.appointment_id}</td>
+          <td data-label="Receipt">
+            <img src="${payment.receipt_image_url}" alt="Receipt" width="50" onclick="openReceiptPopup('${payment.receipt_image_url}')">
+          </td>
+          <td data-label="Status">${payment.status}</td>
+          <td data-label="Verified By">${payment.verified_by || "N/A"}</td>
+          <td data-label="Verified At">${payment.verified_at || "N/A"}</td>
+          <td data-label="Actions">
+            ${payment.status === "pending" ? `<button onclick="verifyPayment(${payment.payment_id})">Verify</button>` : ""}
+            ${payment.status === "pending" ? `<button onclick="rejectPayment(${payment.payment_id})">Reject</button>` : ""}
+          </td>
+        `;
+        paymentHistoryTable.appendChild(row);
+      });
+    }
+
+    // Upload Payment Form Submission
+    uploadPaymentForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const appointmentId = document.getElementById("appointment_id").value;
+      const receiptImage = document.getElementById("receipt_image").files[0];
+
+      if (!appointmentId || !receiptImage) {
+        alert("Please fill out all fields!");
+        return;
+      }
+
+      // Simulate uploading payment (Replace with actual API call)
+      const newPayment = {
+        payment_id: payments.length + 1,
+        appointment_id: appointmentId,
+        receipt_image_url: URL.createObjectURL(receiptImage),
+        status: "pending",
+        verified_by: null,
+        verified_at: null,
+      };
+      payments.push(newPayment);
+      renderPaymentHistory();
+      alert("Payment receipt uploaded successfully!");
+    });
+
+    // Verify Payment
+    function verifyPayment(paymentId) {
+      const payment = payments.find((p) => p.payment_id === paymentId);
+      if (payment) {
+        payment.status = "verified";
+        payment.verified_by = "Admin";
+        payment.verified_at = new Date().toLocaleString();
+        renderPaymentHistory();
+        alert("Payment verified successfully!");
+      }
+    }
+
+    // Reject Payment
+    function rejectPayment(paymentId) {
+      const payment = payments.find((p) => p.payment_id === paymentId);
+      if (payment) {
+        payment.status = "rejected";
+        payment.verified_by = "Admin";
+        payment.verified_at = new Date().toLocaleString();
+        renderPaymentHistory();
+        alert("Payment rejected!");
+      }
+    }
+
+    // Receipt Pop-up Logic
+    function openReceiptPopup(src) {
+      popupReceipt.src = src;
+      receiptPopup.style.display = "block";
+    }
+
+    function closeReceiptPopup() {
+      receiptPopup.style.display = "none";
+    }
+
+    // Initial Render
+    renderPaymentHistory();
+  </script>
+@endsection

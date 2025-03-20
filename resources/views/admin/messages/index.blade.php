@@ -1,172 +1,395 @@
-  <link rel="stylesheet" href="{{ asset('css/admin/messages.css') }}">
-</head>
-<body>
-  <div class="container-fluid">
-    <h1><i class="fas fa-comments me-2"></i>Admin Message UI</h1>
+<div class="container1">
+  <h1>Doctor's Messaging</h1>
 
-    <!-- Chat Layout -->
-    <div class="chat-layout">
-      <!-- User List -->
-      <div class="user-list">
-        <h3>Users</h3>
-        <ul id="user-list">
-          <!-- Users will be dynamically added here -->
-        </ul>
-      </div>
-
-      <!-- Chat Window -->
-      <div class="chat-window">
-        <!-- Chat Header -->
-        <div class="chat-header" id="chat-header">
-          Select a user to start chatting
-        </div>
-
-        <!-- Chat History -->
-        <div class="chat-history" id="chat-history">
-          <!-- Messages will be dynamically added here -->
-        </div>
-
-        <!-- Chat Input -->
-        <div class="chat-input">
-          <textarea id="message-input" placeholder="Type your message here..." rows="2"></textarea>
-          <button id="send-btn"><i class="fas fa-paper-plane"></i> Send</button>
-        </div>
-      </div>
-    </div>
+  <!-- User Selection -->
+  <div class="user-selection">
+    <label for="userSelect">Select User:</label>
+    <select id="userSelect">
+      <option value="">Select a User</option>
+      <option value="1">John Doe</option>
+      <option value="2">Jane Smith</option>
+    </select>
   </div>
 
-  <script>
-    // Sample Data (Replace with API calls in a real application)
-    const users = [
-      { id: 1, name: "User 1" },
-      { id: 2, name: "User 2" },
-      { id: 3, name: "User 3" },
-    ];
+  <!-- Chat Container -->
+  <div class="chat-container" id="chatContainer" style="display: none;">
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <h2 id="chatUserName"></h2>
+      <p>Online</p>
+    </div>
 
-    const messages = {
-      1: [
-        {
-          id: 1,
-          sender: "Admin",
-          receiver: "User 1",
-          message: "Hello, how can I assist you today?",
-          timestamp: "2023-10-25T10:00:00",
-        },
-        {
-          id: 2,
-          sender: "User 1",
-          receiver: "Admin",
-          message: "I need help with my appointment.",
-          timestamp: "2023-10-25T10:05:00",
-        },
-      ],
-      2: [
-        {
-          id: 3,
-          sender: "Admin",
-          receiver: "User 2",
-          message: "Hi, how are you?",
-          timestamp: "2023-10-25T11:00:00",
-        },
-      ],
-      3: [],
-    };
+    <!-- Chat Messages -->
+    <div class="chat-messages" id="chatMessages">
+      <!-- Messages will be dynamically populated here -->
+    </div>
 
-    let selectedUserId = null;
+    <!-- Chat Input -->
+    <div class="chat-input">
+      <textarea id="messageInput" placeholder="Type your message..."></textarea>
+      <input type="file" id="fileInput" style="display: none;">
+      <button onclick="document.getElementById('fileInput').click()">📎</button>
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
 
-    // Function to render the user list
-    function renderUserList() {
-      const userList = document.getElementById("user-list");
-      userList.innerHTML = ""; // Clear existing users
+<style>
+  .container1 {
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 800px;
+  }
 
-      users.forEach((user) => {
-        const li = document.createElement("li");
-        li.textContent = user.name;
-        li.addEventListener("click", () => selectUser(user.id));
-        userList.appendChild(li);
-      });
+  h1 {
+    color:#3498db;
+    text-align: center;
+  }
+
+  .user-selection {
+    margin-bottom: 20px;
+  }
+
+  .user-selection label {
+    font-weight: bold;
+  }
+
+  .user-selection select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .chat-container {
+    display: fixed;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .chat-header {
+    background-color:#3498db;
+    color: white;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .chat-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .chat-header p {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+  }
+
+  .chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.1);/* Set the width */
+            height: 400px; /* Set a fixed height */
+            overflow-y: auto; /* Enable vertical scrolling */
+            border: 1px solid #ccc;
+            padding: 10px;
+  }
+
+  .message {
+    display: flex;
+    margin-bottom: 15px;
+  }
+
+  .message.user {
+    justify-content: flex-start;
+  }
+
+  .message.doctor {
+    justify-content: flex-end;
+  }
+
+  .message-content {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .message.user .message-content {
+    background: rgba(255, 255, 255, 0.1);
+    color: #333;
+  }
+
+  .message.doctor .message-content {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .message-file {
+    display: block;
+    margin-top: 5px;
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .message-file:hover {
+    text-decoration: underline;
+  }
+
+  .chat-input {
+    display: flex;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+  }
+
+  .chat-input textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+  }
+
+  .chat-input button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color:#3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .chat-input button:hover {
+    background-color:#3498db;
+  }
+
+  /* Dark Theme */
+  body.dark-theme {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  .dark-theme .container1 {
+    background-color: #1f1f1f;
+    color: #ffffff;
+  }
+
+  .dark-theme h1 {
+    color:#3498db;
+  }
+
+  .dark-theme .user-selection select {
+    background-color: #333;
+    color: #ffffff;
+    border-color: #555;
+  }
+
+  .dark-theme .chat-container {
+    border-color: #555;
+  }
+
+  .dark-theme .chat-header {
+    background-color:#3498db;
+  }
+
+  .dark-theme .chat-messages {
+    background-color: #333;
+  }
+
+  .dark-theme .message.user .message-content {
+    background-color: #555;
+    color: #ffffff;
+  }
+
+  .dark-theme .chat-input {
+    background-color: #1f1f1f;
+    border-color: #555;
+  }
+
+  .dark-theme .chat-input textarea {
+    background-color: #333;
+    color: #ffffff;
+    border-color: #555;
+  }
+
+  .dark-theme .chat-input button {
+    background-color:#3498db;
+  }
+
+  .dark-theme .chat-input button:hover {
+    background-color:#3498db;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .container1 {
+      width: 95%;
+      padding: 10px;
     }
 
-    // Function to select a user
-    function selectUser(userId) {
-      selectedUserId = userId;
-      const user = users.find((u) => u.id === userId);
-      document.getElementById("chat-header").textContent = `Chat with ${user.name}`;
-      renderMessages();
-      document.getElementById("message-input").disabled = false;
-      document.getElementById("send-btn").disabled = false;
-
-      // Highlight the selected user
-      const userListItems = document.querySelectorAll("#user-list li");
-      userListItems.forEach((li) => li.classList.remove("active"));
-      userListItems[userId - 1].classList.add("active");
+    .chat-container {
+      height: 80vh;
     }
 
-    // Function to render messages in the chat history
-    function renderMessages() {
-      const chatHistory = document.getElementById("chat-history");
-      chatHistory.innerHTML = ""; // Clear existing messages
+    .chat-input {
+      flex-direction: column;
+    }
 
-      if (selectedUserId) {
-        const userMessages = messages[selectedUserId] || [];
-        userMessages.forEach((message) => {
-          const messageDiv = document.createElement("div");
-          messageDiv.classList.add("message");
-          messageDiv.classList.add(message.sender === "Admin" ? "sent" : "received");
+    .chat-input textarea {
+      margin-bottom: 10px;
+    }
 
-          messageDiv.innerHTML = `
-            <div class="sender">${message.sender}</div>
-            <div class="text">${message.message}</div>
-            <div class="timestamp">${new Date(message.timestamp).toLocaleString()}</div>
-            ${message.sender === "Admin" ? `
-              <div class="actions">
-                <button class="delete-btn" onclick="deleteMessage(${message.id})">
-                  <i class="fas fa-trash"></i> Delete
-                </button>
-              </div>
-            ` : ""}
-          `;
-          chatHistory.appendChild(messageDiv);
-        });
+    .chat-input button {
+      margin-left: 0;
+    }
+  }
+</style>
 
-        // Scroll to the bottom of the chat history
-        chatHistory.scrollTop = chatHistory.scrollHeight;
+<script>
+  // Sample Data (Replace with actual data from backend)
+  const messages = {
+    1: [
+      {
+        message_id: 1,
+        sender_id: 1, // User
+        receiver_id: 2, // Doctor
+        message_text: "Hello Doctor, I have a question about my appointment.",
+        sent_at: "2023-10-15T10:00:00",
+        is_read: true,
+      },
+      {
+        message_id: 2,
+        sender_id: 2, // Doctor
+        receiver_id: 1, // User
+        message_text: "Hi! Sure, what would you like to know?",
+        sent_at: "2023-10-15T10:05:00",
+        is_read: true,
+      },
+      {
+        message_id: 3,
+        sender_id: 1, // User
+        receiver_id: 2, // Doctor
+        message_text: "Can I reschedule my appointment?",
+        sent_at: "2023-10-15T10:10:00",
+        is_read: false,
+      },
+    ],
+    2: [
+      {
+        message_id: 4,
+        sender_id: 2, // User
+        receiver_id: 2, // Doctor
+        message_text: "Hello Doctor, I need some advice.",
+        sent_at: "2023-10-15T11:00:00",
+        is_read: true,
+      },
+    ],
+  };
+
+  // DOM Elements
+  const userSelect = document.getElementById("userSelect");
+  const chatContainer = document.getElementById("chatContainer");
+  const chatUserName = document.getElementById("chatUserName");
+  const chatMessages = document.getElementById("chatMessages");
+  const messageInput = document.getElementById("messageInput");
+  const fileInput = document.getElementById("fileInput");
+
+  // Render Messages
+  function renderMessages(userId) {
+    chatMessages.innerHTML = "";
+    const userMessages = messages[userId] || [];
+
+    userMessages.forEach((message) => {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", message.sender_id === 2 ? "doctor" : "user");
+
+      const messageContent = document.createElement("div");
+      messageContent.classList.add("message-content");
+
+      // Message Text
+      const messageText = document.createElement("p");
+      messageText.textContent = message.message_text;
+      messageContent.appendChild(messageText);
+
+      // Timestamp
+      const timestamp = document.createElement("span");
+      timestamp.classList.add("timestamp");
+      timestamp.textContent = new Date(message.sent_at).toLocaleTimeString();
+      messageContent.appendChild(timestamp);
+
+      // File Download Link (if applicable)
+      if (message.message_text.startsWith("File:")) {
+        const fileLink = document.createElement("a");
+        fileLink.classList.add("message-file");
+        fileLink.href = "#"; // Replace with actual file URL
+        fileLink.textContent = "Download File";
+        fileLink.download = message.message_text.split(": ")[1];
+        messageContent.appendChild(fileLink);
       }
-    }
 
-    // Function to send a new message
-    document.getElementById("send-btn").addEventListener("click", () => {
-      const messageInput = document.getElementById("message-input");
-      const messageText = messageInput.value.trim();
-
-      if (messageText && selectedUserId) {
-        const newMessage = {
-          id: messages[selectedUserId].length + 1,
-          sender: "Admin",
-          receiver: `User ${selectedUserId}`,
-          message: messageText,
-          timestamp: new Date().toISOString(),
-        };
-
-        messages[selectedUserId].push(newMessage);
-        renderMessages();
-        messageInput.value = ""; // Clear the input
-      }
+      messageDiv.appendChild(messageContent);
+      chatMessages.appendChild(messageDiv);
     });
 
-    // Function to delete a message
-    function deleteMessage(messageId) {
-      if (confirm("Are you sure you want to delete this message?")) {
-        messages[selectedUserId] = messages[selectedUserId].filter(
-          (m) => m.id !== messageId
-        );
-        renderMessages();
-      }
+    // Scroll to the bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Send Message
+  function sendMessage() {
+    const userId = userSelect.value;
+    const messageText = messageInput.value.trim();
+    const file = fileInput.files[0];
+
+    if (!messageText && !file) {
+      alert("Please enter a message or attach a file!");
+      return;
     }
 
-    // Initial render
-    renderUserList();
-    renderMessages();
-  </script>
-</body>
-</html>
+    // Simulate sending a message (Replace with actual API call)
+    const newMessage = {
+      message_id: messages[userId].length + 1,
+      sender_id: 2, // Doctor
+      receiver_id: userId, // User
+      message_text: messageText || `File: ${file.name}`,
+      sent_at: new Date().toISOString(),
+      is_read: false,
+    };
+    messages[userId].push(newMessage);
+
+    // Clear Input
+    messageInput.value = "";
+    fileInput.value = "";
+
+    // Render Messages
+    renderMessages(userId);
+  }
+
+  // Handle User Selection
+  userSelect.addEventListener("change", () => {
+    const userId = userSelect.value;
+    if (userId) {
+      chatContainer.style.display = "block";
+      chatUserName.textContent = userSelect.options[userSelect.selectedIndex].text;
+      renderMessages(userId);
+    } else {
+      chatContainer.style.display = "none";
+    }
+  });
+
+  // Handle File Input
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (file) {
+      sendMessage();
+    }
+  });
+</script>

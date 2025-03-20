@@ -29,12 +29,12 @@
                     <i class="fas fa-caret-down"></i>
                 </div>
                 <ul class="dropdown-menu1">
-                    <li><a href="/profile">Profile Edit</a></li>
-                    <li><a href="/appointment">Appointment</a></li>
-                    <li><a href="/messaging">Messaging</a></li>
-                    <li><a href="/file-sharing">File Sharing</a></li>
-                    <li><a href="/video-calls">Video Calls</a></li>
-                    <li><a href="/notifications">Notifications</a></li>
+                    <a href="user/profile">Profile Edit</a>
+                    <a href="user/appointments">Appointment</a>
+                    <a href="user/messages">Messaging</a>
+                    <a href="user/file-sharing">File Sharing</a>
+                    <a href="/video-calls">Video Calls</a></li>
+                    <a href="/notifications">Notifications</a>
                 </ul>
             </li>
         </ul>
