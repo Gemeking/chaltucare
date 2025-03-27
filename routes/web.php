@@ -1,6 +1,10 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ContactController;
+
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
 Route::get('/', function () {
     return view('pages.home');
 });
@@ -52,7 +56,9 @@ Route::get('/user/appointments/', function () {
 Route::get('/user/messages/', function () {
     return view('user.messages.index');
 });
-
+Route::get('/user/videocall/', function () {
+    return view('user.videocall.index');
+});
 
 
 
@@ -106,3 +112,8 @@ Route::get('/components/{component}', function ($component) {
 Route::get('/user/index', function () {
     return view('user.index');
 })->name('user.index');
+
+
+Route::get('/test-video', function() {
+    return view('user.videocall.index');
+});

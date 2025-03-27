@@ -85,23 +85,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Raleway', sans-serif;
-        }
-
-        body {
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
         .wrapper {
             overflow: hidden;
             max-width: 390px;
