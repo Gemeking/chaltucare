@@ -30,6 +30,9 @@ Route::get('/contact', function () {
 Route::get('/blog', function () {
     return view('pages.blog');
 });
+Route::get('/notification', function () {
+    return view('pages.notification');
+});
 
 // routes/web.php
 

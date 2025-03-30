@@ -1,136 +1,149 @@
- /* General Styles */
- .container-fluid {
-    padding: 20px;
+:root {
+    --primary: #3182CE;
+    --primary-light: rgba(49, 130, 206, 0.1);
+    --secondary: #2C5282;
+    --accent: #38B2AC;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --light: #F7FAFC;
+    --dark: #1A202C;
+    --gray: #E2E8F0;
 }
 
-h2 {
-    color: #fff;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 20px;
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Card Styles */
 .card {
-    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
+    margin-bottom: 24px;
 }
 
 .card-header {
-    background: rgba(255, 255, 255, 0.2);
-    border-bottom: none;
-    border-radius: 10px 10px 0 0;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: 600;
+    background-color: white;
+    border-bottom: 1px solid var(--gray);
+    border-radius: 12px 12px 0 0 !important;
+    padding: 16px 20px;
 }
 
-.card-body {
-    padding: 20px;
+.nav-tabs {
+    border-bottom: 2px solid var(--gray);
 }
 
-/* Table Styles */
-.table {
-    color: #fff;
-}
-
-.table thead th {
-    background-color: #3498db;
-    color: #fff;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 14px;
-}
-
-.table tbody tr {
-    background-color: rgba(255, 255, 255, 0.05);
-    transition: background 0.3s ease;
-}
-
-.table tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Badge Styles */
-.badge.bg-warning {
-    background-color: #ffc107 !important;
-    color: #000;
-}
-
-.badge.bg-success {
-    background-color: #28a745 !important;
-}
-
-.badge.bg-danger {
-    background-color: #dc3545 !important;
-}
-
-/* Button Styles */
-.btn-verify {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 12px;
-    transition: background 0.3s ease;
-}
-
-.btn-verify:hover {
-    background-color: #218838;
-}
-
-.btn-reject {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 12px;
-    transition: background 0.3s ease;
-}
-
-.btn-reject:hover {
-    background-color: #c82333;
-}
-
-/* Modal Styles */
-.modal-content {
-    background-color: #1a1a1a;
-    color: #fff;
-    border-radius: 10px;
-}
-
-.modal-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.modal-body img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-/* Nav Tabs */
 .nav-tabs .nav-link {
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.1);
+    color: #64748B;
+    font-weight: 500;
     border: none;
-    border-radius: 5px;
-    margin-right: 5px;
-    transition: background 0.3s ease;
+    padding: 12px 20px;
+    position: relative;
 }
 
 .nav-tabs .nav-link.active {
-    background-color: #3498db;
-    color: #fff;
+    color: var(--primary);
+    background: transparent;
+    border-bottom: 3px solid var(--primary);
 }
 
 .nav-tabs .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--primary);
+}
+
+.badge {
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.badge-pending {
+    background-color: var(--warning);
+    color: white;
+}
+
+.badge-verified {
+    background-color: var(--success);
+    color: white;
+}
+
+.badge-rejected {
+    background-color: var(--danger);
+    color: white;
+}
+
+.btn-verify {
+    background-color: var(--success);
+    color: white;
+}
+
+.btn-reject {
+    background-color: var(--danger);
+    color: white;
+}
+
+.btn-verify:hover, .btn-reject:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.doctor-profile {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+}
+
+.payment-details {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.payment-system-info {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.payment-system-info i {
+    color: var(--primary);
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.receipt-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.receipt-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.modal-content {
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+    .nav-tabs .nav-link {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
 }

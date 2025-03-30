@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
 
     <!-- Dashboard Content -->
-    <div class="dashboard-container container-fluid">
+    <div class="dashboard-container1 container-fluid">
     <br></br></br>
         <div class="row">
             <!-- Include Sidebar -->
